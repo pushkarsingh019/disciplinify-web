@@ -39,3 +39,32 @@
     border-radius: 12px;
     font-size: 18px;
 }
+
+
+/* signup page */
+
+.signup-screen {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    place-content: center;
+    height: 100vh;
+}
+
+.form h2 {
+    margin-bottom: 3vh;
+}
+
+.form input {
+    padding: 10px 15px;
+    border: 1px solid black;
+    margin: 1vh;
+    border-radius: 12px;
+    width: 50vw;
+    height: 2.5vh;
+    font-size: 16px;
+}
+
+.form button {
+    margin-top: 3vh;
+}
