@@ -1,7 +1,7 @@
 // store for the application
 import {createStore, action, thunk} from "easy-peasy";
 import axios from "axios";
-const backendUrl = "http://localhost:8080"
+const backendUrl = process.env.origin || "http://localhost:8080"
 
 const store = createStore({
     userData : {},
