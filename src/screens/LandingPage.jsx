@@ -16,7 +16,7 @@ export default function LandingScreen() {
         </i>
       </p>
       <button className="cta" onClick={() => navigate("/signup")}>
-        Get started
+        Get Started
       </button>
     </section>
   );

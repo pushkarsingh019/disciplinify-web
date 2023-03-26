@@ -16,7 +16,7 @@
 .hero-image {
     height: 50vh;
     width: 80vw;
-    padding-top: 8vh;
+    padding-top: 6vh;
 }
 
 .header {
@@ -32,10 +32,10 @@
 }
 
 .cta {
-    padding: 10px 12px;
+    padding: 12px 15px;
     background-color: #000000;
     color: white;
     width: 50vw;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 18px;
 }
