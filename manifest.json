@@ -1,0 +1,15 @@
+{
+    "short_name": "Disciplinify",
+    "name": "Disciplinify",
+    "icons": [
+        {
+            "src": "/vite.svg",
+            "type": "image/svg",
+            "sizes": "144x144"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+}
