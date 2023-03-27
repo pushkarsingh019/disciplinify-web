@@ -1,19 +1,30 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useStoreActions } from "easy-peasy";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { backendUrl } from "../utils/config";
 
-export default function Signup() {
+export default function Signup({ onSignup }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const signupUser = useStoreActions((actions) => actions.signupUser);
   const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: (userData) => {
+      return axios.post(`${backendUrl}/auth/newUser`, userData);
+    },
+    onSuccess: (data) => {
+      localStorage.setItem("access_token", data.data.user.accessToken);
+      onSignup(data.data.user);
+      navigate("/home");
+    },
+  });
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
     const userDetails = { name, email, password };
-    signupUser(userDetails);
-    navigate("/home");
+    mutation.mutate(userDetails);
   };
 
   return (
@@ -49,7 +60,14 @@ export default function Signup() {
         </button>
       </form>
       <br />
-      <br />
+      <div>
+        {mutation.isLoading
+          ? "creating the account"
+          : mutation.isError
+          ? `${mutation.error.response.data.message}`
+          : null}
+      </div>
+      <div>{mutation.isSuccess ? "account created" : null}</div>
       <small>
         Already have an account ? <Link to={`/login`}>Login</Link>
       </small>
