@@ -11,6 +11,9 @@
 }
 
 /* for the screen */
+.screen {
+    padding: 15vh 10vw;
+}
 
 /* The landing page */
 .hero-image {
@@ -38,12 +41,23 @@
     width: 50vw;
     border-radius: 12px;
     font-size: 18px;
+    border: none;
+}
+
+.secondary-button {
+    padding: 12px 15px;
+    background-color: white;
+    color: black;
+    width: 50vw;
+    border-radius: 12px;
+    font-size: 18px;
+    border: 1px solid;
 }
 
 
 /* signup page */
 
-.signup-screen {
+.center-form {
     display: flex;
     flex-direction: column;
     place-items: center;

@@ -5,6 +5,7 @@ import { StoreProvider } from "easy-peasy";
 import LandingScreen from "./screens/LandingPage";
 import Signup from "./screens/Signup";
 import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/Login";
 
 // importing store
 import store from "./utils/store";
@@ -16,7 +17,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<LandingScreen />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/home" index element={<HomeScreen />} />
+          <Route path="/home" element={<HomeScreen />} />
+          <Route path="/login" element={<LoginScreen />} />
         </Routes>
       </BrowserRouter>
     </StoreProvider>

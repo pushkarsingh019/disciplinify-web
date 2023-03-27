@@ -17,7 +17,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup-screen">
+    <div className="center-form">
       <form className="form" onSubmit={formSubmitHandler}>
         <h2>Create an account</h2>
         <input
