@@ -6,7 +6,7 @@ import HeroImage from "../assets/hero.svg";
 export default function LandingScreen() {
   const navigate = useNavigate();
   return (
-    <section className="screen">
+    <section className="center-form">
       <img src={HeroImage} className="hero-image" alt="Disciplinify Logo" />
       <h1 className="header">Disciplinify</h1>
       <p className="subtitle">

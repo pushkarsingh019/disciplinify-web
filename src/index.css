@@ -12,18 +12,18 @@
 
 /* for the screen */
 .screen {
-    padding: 15vh 10vw;
+    /* padding: 15vh 10vw; */
 }
 
 /* The landing page */
 .hero-image {
-    height: 50vh;
+    height: 45vh;
     width: 80vw;
-    padding-top: 6vh;
+    /* padding-top: 6vh; */
 }
 
 .header {
-    margin-top: 5vh;
+    margin-top: 2.5vh;
     font-size: 7vh;
     font-weight: 700;
 }
@@ -31,7 +31,7 @@
 .subtitle {
     padding-top: 1vh;
     font-size: 3vh;
-    margin-bottom: 5vh;
+    margin-bottom: 3vh;
 }
 
 .cta {
