@@ -8,12 +8,16 @@ import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/Login";
 
 export default function App() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
   const accessToken = localStorage.getItem("access_token");
 
   // handlers
   const authHandler = (user) => {
-    setUserData({ id: user.id, name: user.name, email: user.email });
+    const userInfo = { id: user.id, name: user.name, email: user.email };
+    localStorage.setItem("userData", JSON.stringify(userInfo));
+    setUserData(JSON.parse(localStorage.getItem("userData")));
   };
 
   return (

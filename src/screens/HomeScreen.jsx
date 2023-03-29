@@ -1,7 +1,18 @@
 import TimeAndGreetings from "../components/TimeAndGreeting";
 import ProgressRings from "../components/ProgressRings";
+import { Link } from "react-router-dom";
 
 export default function HomeScreen({ userData }) {
+  if (userData == null) {
+    return (
+      <div className="center-form">
+        <p className="subtitle">Your session has expired</p>
+        <p>
+          <Link to={"/signup"}>Signup</Link> or <Link to={"/login"}>Login</Link>{" "}
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="screen">
       <TimeAndGreetings name={userData.name} />
