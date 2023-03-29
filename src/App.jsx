@@ -13,7 +13,7 @@ export default function App() {
 
   // handlers
   const authHandler = (user) => {
-    setUserData(user);
+    setUserData({ id: user.id, name: user.name, email: user.email });
   };
 
   return (
