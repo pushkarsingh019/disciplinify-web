@@ -4,7 +4,7 @@
 
 *{
     /* border: 1px solid red; */
-    text-align: center;
+    /* text-align: center; */
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -12,7 +12,7 @@
 
 /* for the screen */
 .screen {
-    /* padding: 15vh 10vw; */
+    padding: 5vh 8vw;
 }
 
 /* The landing page */
@@ -58,6 +58,7 @@
 /* signup page */
 
 .center-form {
+    text-align: center;
     display: flex;
     flex-direction: column;
     place-items: center;
@@ -81,4 +82,39 @@
 
 .form button {
     margin-top: 3vh;
+}
+
+
+/* Home Page */
+.small {
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.h4 {
+    font-size: 3vh;
+    font-weight: bolder;
+    padding-top: 5px;
+}
+
+.progress-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+    margin-top: 3vh;
+    border-radius: 12px;
+    border: 1px solid black;
+}
+
+.progress-section .label {
+    padding: 10px 12px;
+}
+
+small {
+    font-size: 12px;
+}
+
+strong {
+    font-size: 16px;
 }
