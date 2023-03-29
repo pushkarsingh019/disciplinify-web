@@ -23,7 +23,16 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LandingScreen />} />
+        <Route
+          path="/"
+          element={
+            userData == null ? (
+              <LandingScreen />
+            ) : (
+              <HomeScreen userData={userData} />
+            )
+          }
+        />
         <Route path="/signup" element={<Signup onSignup={authHandler} />} />
         <Route path="/home" element={<HomeScreen userData={userData} />} />
         <Route path="/login" element={<LoginScreen onLogin={authHandler} />} />
