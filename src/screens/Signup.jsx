@@ -45,6 +45,7 @@ export default function Signup({ onSignup }) {
           required
           onChange={(event) => setEmail(event.target.value)}
           value={email}
+          autoComplete="username"
         />
         <br />
         <input
@@ -53,6 +54,7 @@ export default function Signup({ onSignup }) {
           required
           onChange={(event) => setPassword(event.target.value)}
           value={password}
+          autoComplete={"new-password"}
         />
         <br />
         <button type="submit" className="cta">

@@ -36,14 +36,6 @@ export default function LoginScreen({ onLogin }) {
     event.preventDefault();
     const user = { email, password };
     mutation.mutateAsync(user);
-    // if (loginMutation.isSuccess) {
-    //   localStorage.setItem("access_token", loginMutation.data.accessToken);
-    //   const user = loginMutation.data.user;
-    //   onLogin({ id: user._id, name: user.name, email: user.email });
-    // }
-    // if (loginMutation.isError) {
-    //   console.log(loginMutation.data.response.data);
-    // }
   };
 
   return (
@@ -58,12 +50,14 @@ export default function LoginScreen({ onLogin }) {
           placeholder="Enter your email"
           onChange={(event) => setEmail(event.target.value)}
           value={email}
+          autoComplete="username"
         />
         <input
           type="password"
           placeholder="Enter your password"
           onChange={(event) => setPassword(event.target.value)}
           value={password}
+          autoComplete={"current-password"}
         />
         <button type="submit" className="cta">
           Login
