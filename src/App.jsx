@@ -6,6 +6,7 @@ import LandingScreen from "./screens/LandingPage";
 import Signup from "./screens/Signup";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/Login";
+import MorningScreen from "./screens/MorningScreen";
 
 export default function App() {
   const [userData, setUserData] = useState(
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/signup" element={<Signup onSignup={authHandler} />} />
         <Route path="/home" element={<HomeScreen userData={userData} />} />
         <Route path="/login" element={<LoginScreen onLogin={authHandler} />} />
+        <Route path="/morning" element={<MorningScreen />} />
       </Routes>
     </BrowserRouter>
   );

@@ -36,10 +36,12 @@ export default function HomeScreen({ userData }) {
           <ProgressRings
             taskProgress={0.9}
             mindfullnessProgress={0.7}
-            trainingProgress={0.2}
+            trainingProgress={0.8}
           />
         </div>
       </section>
+      <br />
+      complete your <Link to={`/morning`}>morning journal</Link>
     </div>
   );
 }

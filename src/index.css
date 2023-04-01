@@ -118,3 +118,18 @@ small {
 strong {
     font-size: 16px;
 }
+
+/* morning reflection */
+.feeling-flex {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.center-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    height: 90vh;
+}
