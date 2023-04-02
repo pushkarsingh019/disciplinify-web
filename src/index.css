@@ -15,6 +15,18 @@
     padding: 5vh 8vw;
 }
 
+.back {
+    position: absolute;
+    top: 5vh;
+    left: 10vw;
+}
+
+.forward {
+    position: absolute;
+    top: 5vh;
+    right: 10vw;
+}
+
 /* The landing page */
 .hero-image {
     height: 45vh;
@@ -127,9 +139,34 @@ strong {
 }
 
 .center-content {
+    padding: 5vh 8vw;
     text-align: center;
     display: flex;
     flex-direction: column;
     place-content: center;
     height: 90vh;
+}
+
+
+/* task form */
+.task-input {
+    padding: 10px 0px;
+    border: none;
+    border-bottom: 1px dotted black;
+    width: 70vw;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 3vh;
+}
+
+.task-input:focus {
+    outline: none;
+}
+
+
+/* text editor */
+.editor {
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 12px;
 }
