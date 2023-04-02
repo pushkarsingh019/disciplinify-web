@@ -3,12 +3,19 @@ import fullSleep from "../assets/icons/full-sleep.svg";
 import goodSleep from "../assets/icons/good-sleep.svg";
 import badSleep from "../assets/icons/bad-sleep.svg";
 import noSleep from "../assets/icons/no-sleep.svg";
+
+// other imports
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import backSVG from "../assets/icons/back.svg";
 import forwardSVG from "../assets/icons/forward.svg";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
+
+// data fetching
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { backendUrl } from "../utils/config";
 
 export default function MorningScreen() {
   const [journey, setJourney] = useState(0);
@@ -21,9 +28,20 @@ export default function MorningScreen() {
     sleepMetric: 0,
     tasks: [],
     answer: "",
+    reflectionQuestion:
+      "How can I rekindle my principles and start living today?",
     reflection: "",
   });
   const navigate = useNavigate();
+  const token = localStorage.getItem("access_token");
+  console.log(token);
+  const mutation = useMutation({
+    mutationFn: (journalEntry) => {
+      return axios.post(`${backendUrl}/journal/morning`, journalEntry, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+    },
+  });
 
   // functions
 
@@ -51,35 +69,36 @@ export default function MorningScreen() {
 
   const completeMorningReflection = () => {
     setMorningJournal({ ...morningJournal, reflection: reflection });
+    mutation.mutateAsync(morningJournal);
     setJourney(journey + 1);
-  };
-
-  const SleepTracker = () => {
-    return (
-      <section className="center-content screen">
-        <img
-          src={forwardSVG}
-          className="forward"
-          onClick={() => setJourney(journey + 1)}
-        />
-        <h2
-          style={{ textAlign: "left", fontSize: "3.5vh", marginBottom: "5vh" }}
-        >
-          How well did you sleep today?
-        </h2>
-        <div className="feeling-flex">
-          <img src={fullSleep} onClick={() => onTouch(100)} />
-          <img src={goodSleep} onClick={() => onTouch(75)} />
-          <img src={badSleep} onClick={() => onTouch(50)} />
-          <img src={noSleep} onClick={() => onTouch(25)} />
-        </div>
-      </section>
-    );
   };
 
   switch (journey) {
     case 0:
-      return <SleepTracker />;
+      return (
+        <section className="center-content screen">
+          <img
+            src={forwardSVG}
+            className="forward"
+            onClick={() => setJourney(journey + 1)}
+          />
+          <h2
+            style={{
+              textAlign: "left",
+              fontSize: "3.5vh",
+              marginBottom: "5vh",
+            }}
+          >
+            How well did you sleep today?
+          </h2>
+          <div className="feeling-flex">
+            <img src={fullSleep} onClick={() => onTouch(100)} />
+            <img src={goodSleep} onClick={() => onTouch(75)} />
+            <img src={badSleep} onClick={() => onTouch(50)} />
+            <img src={noSleep} onClick={() => onTouch(25)} />
+          </div>
+        </section>
+      );
     case 1:
       return (
         <section>
