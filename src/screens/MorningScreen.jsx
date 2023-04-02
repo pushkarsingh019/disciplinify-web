@@ -3,22 +3,27 @@ import fullSleep from "../assets/icons/full-sleep.svg";
 import goodSleep from "../assets/icons/good-sleep.svg";
 import badSleep from "../assets/icons/bad-sleep.svg";
 import noSleep from "../assets/icons/no-sleep.svg";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import backSVG from "../assets/icons/back.svg";
 import forwardSVG from "../assets/icons/forward.svg";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.bubble.css";
 
 export default function MorningScreen() {
   const [journey, setJourney] = useState(0);
   const [taskOne, setTaskOne] = useState("");
   const [taskTwo, setTaskTwo] = useState("");
   const [taskThree, setTaskThree] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [reflection, setReflection] = useState("");
   const [morningJournal, setMorningJournal] = useState({
     sleepMetric: 0,
     tasks: [],
     answer: "",
     reflection: "",
   });
+  const navigate = useNavigate();
 
   // functions
 
@@ -34,6 +39,19 @@ export default function MorningScreen() {
       tasks: [taskOne, taskTwo, taskThree],
     });
     setJourney(2);
+  };
+
+  const onAnswer = () => {
+    setMorningJournal({
+      ...morningJournal,
+      answer: answer,
+    });
+    setJourney(journey + 1);
+  };
+
+  const completeMorningReflection = () => {
+    setMorningJournal({ ...morningJournal, reflection: reflection });
+    setJourney(journey + 1);
   };
 
   const SleepTracker = () => {
@@ -55,40 +73,6 @@ export default function MorningScreen() {
           <img src={badSleep} onClick={() => onTouch(50)} />
           <img src={noSleep} onClick={() => onTouch(25)} />
         </div>
-      </section>
-    );
-  };
-
-  const DailyHiglight = () => {
-    return (
-      <section>
-        <form onSubmit={onTaskSubmit}>
-          <input
-            type="text"
-            placeholder="task one"
-            onChange={(event) => setTaskOne(event.target.value)}
-            value={taskOne}
-          />
-          <br />
-          <br />
-          <button type="submit">next</button>
-        </form>
-      </section>
-    );
-  };
-
-  const TodayGreatQuestion = () => {
-    return (
-      <section>
-        <h2>What would make today great?</h2>
-      </section>
-    );
-  };
-
-  const ReflectionQuestion = () => {
-    return (
-      <section>
-        <h3>How would you spend your life right now?</h3>
       </section>
     );
   };
@@ -148,10 +132,60 @@ export default function MorningScreen() {
         </section>
       );
     case 2:
-      return <TodayGreatQuestion />;
+      return (
+        <section className="screen">
+          <img
+            src={backSVG}
+            className="back"
+            onClick={() => setJourney(journey - 1)}
+          />
+          <img
+            src={forwardSVG}
+            className="forward"
+            onClick={() => setJourney(journey + 1)}
+          />
+          <h3 style={{ marginTop: "15vh" }}>What would make today great?</h3>
+          <br />
+          <br />
+          <ReactQuill
+            className="editor"
+            theme="bubble"
+            value={answer}
+            onChange={setAnswer}
+          />
+          <br />
+          <button className="cta" onClick={onAnswer}>
+            Next
+          </button>
+        </section>
+      );
     case 3:
-      return <ReflectionQuestion />;
+      return (
+        <section className="screen">
+          <img
+            src={backSVG}
+            className="back"
+            onClick={() => setJourney(journey - 1)}
+          />
+          <h3 style={{ marginTop: "15vh" }}>
+            How would you spend your life right now?
+          </h3>
+          <br />
+          <br />
+          <ReactQuill
+            className="editor"
+            theme="bubble"
+            value={reflection}
+            onChange={setReflection}
+          />
+          <br />
+          <button className="cta" onClick={completeMorningReflection}>
+            complete morning reflection
+          </button>
+        </section>
+      );
     default:
-      return <h3>there is something very wrong</h3>;
+      console.log(morningJournal);
+      navigate("/");
   }
 }

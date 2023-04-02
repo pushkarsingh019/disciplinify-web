@@ -162,3 +162,11 @@ strong {
 .task-input:focus {
     outline: none;
 }
+
+
+/* text editor */
+.editor {
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 12px;
+}
