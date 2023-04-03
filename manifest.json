@@ -9,15 +9,6 @@
             "sizes": "144x144"
         },
         {
-            "src": "/logo48.svg",
-            "sizes": "48x48",
-            "type": "image/svg"
-        },
-        {
-            "src": "/logo48.svg",
-            "sizes": "48x48"
-        },
-        {
             "src": "/logo.svg",
             "sizes": "any"
         }
