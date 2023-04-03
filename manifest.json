@@ -1,14 +1,28 @@
 {
     "short_name": "Disciplinify",
     "name": "Disciplinify",
+    "description" : "become more self-disciplined",
     "icons": [
         {
-            "src": "/vite.svg",
+            "src": "/logo.svg",
             "type": "image/svg",
             "sizes": "144x144"
+        },
+        {
+            "src": "/logo48.svg",
+            "sizes": "48x48",
+            "type": "image/svg"
+        },
+        {
+            "src": "/logo48.svg",
+            "sizes": "48x48"
+        },
+        {
+            "src": "/logo.svg",
+            "sizes": "any"
         }
     ],
-    "start_url": ".",
+    "start_url": "/home",
     "display": "standalone",
     "theme_color": "#000000",
     "background_color": "#ffffff"
