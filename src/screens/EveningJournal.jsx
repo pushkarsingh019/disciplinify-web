@@ -22,6 +22,8 @@ export default function EveningJournal() {
   const token = localStorage.getItem("access_token");
   const mutation = useMutation({
     mutationFn: (journalEntry) => {
+      console.log("journal entry -----");
+      console.log(journalEntry);
       return axios.post(`${backendUrl}/journal/evening`, journalEntry, {
         headers: { authorization: `Bearer ${token}` },
       });
@@ -38,9 +40,10 @@ export default function EveningJournal() {
     setJourney(journey + 1);
   };
 
-  const completeEveningReflection = () => {
-    setEveningJournal({ ...eveningJournal, aBetterToday: betterToday });
-    mutation.mutateAsync(eveningJournal);
+  const completeEveningReflection = async () => {
+    const updatedJournal = { ...eveningJournal, aBetterToday: betterToday };
+    await setEveningJournal(updatedJournal);
+    mutation.mutateAsync(updatedJournal);
   };
 
   switch (journey) {
