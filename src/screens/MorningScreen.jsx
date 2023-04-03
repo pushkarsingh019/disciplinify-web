@@ -34,7 +34,6 @@ export default function MorningScreen() {
   });
   const navigate = useNavigate();
   const token = localStorage.getItem("access_token");
-  console.log(token);
   const mutation = useMutation({
     mutationFn: (journalEntry) => {
       return axios.post(`${backendUrl}/journal/morning`, journalEntry, {
@@ -204,7 +203,6 @@ export default function MorningScreen() {
         </section>
       );
     default:
-      console.log(morningJournal);
-      navigate("/");
+      navigate("/home");
   }
 }
