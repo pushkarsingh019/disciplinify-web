@@ -41,7 +41,12 @@ export default function HomeScreen({ userData }) {
         </div>
       </section>
       <br />
-      complete your <Link to={`/morning`}>morning journal</Link>
+      <p>
+        complete your <Link to={`/morning`}>morning journal</Link>
+      </p>
+      <p>
+        complete your <Link to={`/evening`}>evening journal</Link>
+      </p>
     </div>
   );
 }
