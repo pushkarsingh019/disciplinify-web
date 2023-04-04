@@ -44,6 +44,7 @@ export default function EveningJournal() {
     const updatedJournal = { ...eveningJournal, aBetterToday: betterToday };
     await setEveningJournal(updatedJournal);
     mutation.mutateAsync(updatedJournal);
+    setJourney(journey + 1);
   };
 
   switch (journey) {
