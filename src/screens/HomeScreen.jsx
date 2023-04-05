@@ -2,6 +2,7 @@ import TimeAndGreetings from "../components/TimeAndGreeting";
 import ProgressRings from "../components/ProgressRings";
 import { Link } from "react-router-dom";
 import SuggestionCard from "../components/SuggestionCard";
+import NavBar from "../components/NavBar";
 
 export default function HomeScreen({ userData }) {
   if (userData == null) {
@@ -55,6 +56,7 @@ export default function HomeScreen({ userData }) {
         subtitle={`Wind down and reflect on your day.`}
         redirect={`evening`}
       />
+      <NavBar />
     </div>
   );
 }
