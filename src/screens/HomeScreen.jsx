@@ -1,6 +1,7 @@
 import TimeAndGreetings from "../components/TimeAndGreeting";
 import ProgressRings from "../components/ProgressRings";
 import { Link } from "react-router-dom";
+import SuggestionCard from "../components/SuggestionCard";
 
 export default function HomeScreen({ userData }) {
   if (userData == null) {
@@ -41,12 +42,19 @@ export default function HomeScreen({ userData }) {
         </div>
       </section>
       <br />
-      <p>
-        complete your <Link to={`/morning`}>morning journal</Link>
-      </p>
-      <p>
-        complete your <Link to={`/evening`}>evening journal</Link>
-      </p>
+      <br />
+      <br />
+      <SuggestionCard
+        header={`Morning Reflection`}
+        subtitle={`start you day on the right foot`}
+        redirect={`morning`}
+      />
+      <br />
+      <SuggestionCard
+        header={`Evening Journal`}
+        subtitle={`Wind down and reflect on your day.`}
+        redirect={`evening`}
+      />
     </div>
   );
 }
