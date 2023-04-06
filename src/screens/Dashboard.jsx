@@ -1,6 +1,10 @@
 import NavBar from "../components/NavBar";
 import TimeAndGreetings from "../components/TimeAndGreeting";
-import { generateDateStrings, getDayString } from "../utils/scripts";
+import {
+	generateDateStrings,
+	getDayString,
+	todaysDate,
+} from "../utils/scripts";
 import DayBox from "../components/DayBox";
 import { useMutation } from "@tanstack/react-query";
 import { backendUrl } from "../utils/config";
@@ -41,12 +45,34 @@ export default function Dashboard() {
 		},
 	});
 
+	const modifyTask = useMutation({
+		mutationFn: async ({ taskId, status, date }) => {
+			return axios
+				.post(
+					`${backendUrl}/daily/modifyTask`,
+					{
+						taskId,
+						status,
+						date,
+					},
+					{
+						headers: { authorization: `Bearer ${token}` },
+					}
+				)
+				.then((res) => res.data);
+		},
+		onSuccess: (data) => {
+			setTasks(data);
+		},
+	});
+
 	// functions
 	const onDateChoice = (date) => mutation.mutate(date);
 
 	const handleTaskCompletion = (data) => {
-		console.log(data);
-		console.log(`is ${data.taskId} completed ? ${data.status}`);
+		const date = todaysDate();
+		let dataToSend = { taskId: data.taskId, status: data.status, date };
+		modifyTask.mutate(dataToSend);
 	};
 
 	// components
