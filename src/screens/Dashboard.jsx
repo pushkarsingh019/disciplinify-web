@@ -44,6 +44,11 @@ export default function Dashboard() {
 	// functions
 	const onDateChoice = (date) => mutation.mutate(date);
 
+	const handleTaskCompletion = (data) => {
+		console.log(data);
+		console.log(`is ${data.task} completed ? ${data.status}`);
+	};
+
 	// components
 	const DailyData = () => {
 		if (mutation.isLoading) return <p>Loading...</p>;
@@ -52,7 +57,14 @@ export default function Dashboard() {
 			return (
 				<section>
 					{tasks.map((task) => {
-						return <CheckBox key={task.task} task={task.task} />;
+						return (
+							<CheckBox
+								key={task.task}
+								task={task.task}
+								status={task.completed}
+								onTaskComplete={handleTaskCompletion}
+							/>
+						);
 					})}
 				</section>
 			);

@@ -1,12 +1,20 @@
-export default function CheckBox({ task, status }) {
+import { useState } from "react";
+
+export default function CheckBox({ task, status, onTaskComplete }) {
+	const [isCompleted, setIsCompleted] = useState(status);
+
+	const handleCheckboxChange = async (event) => {
+		await setIsCompleted(!isCompleted);
+		await onTaskComplete({ task, status: !isCompleted });
+	};
+
 	return (
 		<div className="checkbox-container">
 			<input
 				type="checkbox"
-				name=""
-				id=""
-				checked={status}
 				className="checkbox"
+				checked={isCompleted}
+				onChange={handleCheckboxChange}
 			/>
 			<label className="checkbox-label">{task}</label>
 			<br />
