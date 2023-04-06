@@ -19,9 +19,21 @@ import { backendUrl } from "../utils/config";
 
 export default function MorningScreen() {
 	const [journey, setJourney] = useState(0);
-	const [taskOne, setTaskOne] = useState({ completed: false, task: "" });
-	const [taskTwo, setTaskTwo] = useState({ completed: false, task: "" });
-	const [taskThree, setTaskThree] = useState({ completed: false, task: "" });
+	const [taskOne, setTaskOne] = useState({
+		id: 1,
+		completed: false,
+		task: "",
+	});
+	const [taskTwo, setTaskTwo] = useState({
+		id: 2,
+		completed: false,
+		task: "",
+	});
+	const [taskThree, setTaskThree] = useState({
+		id: 3,
+		completed: false,
+		task: "",
+	});
 	const [answer, setAnswer] = useState("");
 	const [reflection, setReflection] = useState("");
 	const [morningJournal, setMorningJournal] = useState({

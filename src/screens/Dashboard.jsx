@@ -46,7 +46,7 @@ export default function Dashboard() {
 
 	const handleTaskCompletion = (data) => {
 		console.log(data);
-		console.log(`is ${data.task} completed ? ${data.status}`);
+		console.log(`is ${data.taskId} completed ? ${data.status}`);
 	};
 
 	// components
@@ -59,10 +59,11 @@ export default function Dashboard() {
 					{tasks.map((task) => {
 						return (
 							<CheckBox
-								key={task.task}
+								key={task.id}
 								task={task.task}
 								status={task.completed}
 								onTaskComplete={handleTaskCompletion}
+								id={task.id}
 							/>
 						);
 					})}

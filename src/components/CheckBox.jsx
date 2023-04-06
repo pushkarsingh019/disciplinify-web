@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export default function CheckBox({ task, status, onTaskComplete }) {
+export default function CheckBox({ task, status, onTaskComplete, id }) {
 	const [isCompleted, setIsCompleted] = useState(status);
 
 	const handleCheckboxChange = async (event) => {
 		await setIsCompleted(!isCompleted);
-		await onTaskComplete({ task, status: !isCompleted });
+		await onTaskComplete({ taskId: id, status: !isCompleted });
 	};
 
 	return (
