@@ -1,11 +1,3 @@
-
-// Below is the format for how days would be parsed in this application
-const date = new Date();
-const year = date.getFullYear();
-const month = String(date.getMonth() + 1).padStart(2, '0');
-const day = String(date.getDate()).padStart(2, '0');
-const formattedDate = `${year}-${month}-${day}`;
-
 export const generateDateStrings = (date, days) => {
     if(days < 0){
         throw new Error("number of days cannot be negative")
