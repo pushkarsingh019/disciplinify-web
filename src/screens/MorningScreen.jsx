@@ -19,9 +19,9 @@ import { backendUrl } from "../utils/config";
 
 export default function MorningScreen() {
 	const [journey, setJourney] = useState(0);
-	const [taskOne, setTaskOne] = useState("");
-	const [taskTwo, setTaskTwo] = useState("");
-	const [taskThree, setTaskThree] = useState("");
+	const [taskOne, setTaskOne] = useState({ completed: false, task: "" });
+	const [taskTwo, setTaskTwo] = useState({ completed: false, task: "" });
+	const [taskThree, setTaskThree] = useState({ completed: false, task: "" });
 	const [answer, setAnswer] = useState("");
 	const [reflection, setReflection] = useState("");
 	const [morningJournal, setMorningJournal] = useState({
@@ -121,8 +121,13 @@ export default function MorningScreen() {
 							required
 							type="text"
 							placeholder="Task One"
-							onChange={(event) => setTaskOne(event.target.value)}
-							value={taskOne}
+							onChange={(event) =>
+								setTaskOne({
+									...taskOne,
+									task: event.target.value,
+								})
+							}
+							value={taskOne.task}
 							className="task-input"
 						/>
 						<br />
@@ -130,8 +135,13 @@ export default function MorningScreen() {
 							required
 							type="text"
 							placeholder="Task Two"
-							onChange={(event) => setTaskTwo(event.target.value)}
-							value={taskTwo}
+							onChange={(event) =>
+								setTaskTwo({
+									...taskTwo,
+									task: event.target.value,
+								})
+							}
+							value={taskTwo.task}
 							className="task-input"
 						/>
 						<br />
@@ -140,9 +150,12 @@ export default function MorningScreen() {
 							type="text"
 							placeholder="Task Three"
 							onChange={(event) =>
-								setTaskThree(event.target.value)
+								setTaskThree({
+									...taskThree,
+									task: event.target.value,
+								})
 							}
-							value={taskThree}
+							value={taskThree.task}
 							className="task-input"
 						/>
 						<br />

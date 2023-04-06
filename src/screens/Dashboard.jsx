@@ -52,7 +52,7 @@ export default function Dashboard() {
 			return (
 				<section>
 					{tasks.map((task) => {
-						return <CheckBox task={task} />;
+						return <CheckBox key={task.task} task={task.task} />;
 					})}
 				</section>
 			);
