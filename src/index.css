@@ -261,3 +261,8 @@ strong {
 .checkbox-container {
     display: flex;
 }
+
+.checkbox-container span{
+    font-size: 18px;
+    font-weight: bolder;
+}

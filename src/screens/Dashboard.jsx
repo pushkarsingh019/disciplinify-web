@@ -11,6 +11,7 @@ import { backendUrl } from "../utils/config";
 import axios from "axios";
 import { useState } from "react";
 import CheckBox from "../components/CheckBox";
+import missionIcon from "../assets/icons/missionIcon.svg";
 
 export default function Dashboard() {
 	const dateList = generateDateStrings(new Date(), 2);
@@ -115,7 +116,18 @@ export default function Dashboard() {
 					);
 				})}
 			</section>
-			<DailyData />
+			<section style={{ textAlign: "left" }}>
+				<div className="checkbox-container">
+					<img src={missionIcon} alt="Todays Goals" />
+					<span className="h2" style={{ marginLeft: "2vw" }}>
+						{" "}
+						Today's Mission
+					</span>
+				</div>
+				<hr />
+				<br />
+				<DailyData />
+			</section>
 		</section>
 	);
 }
