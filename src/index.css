@@ -243,3 +243,20 @@ strong {
     padding: 10px 0px;
     width: 55px;
 }
+
+
+/* checkbox */
+.checkbox {
+    height: 22px;
+    width: 22px;
+    margin-right: 3vw;
+}
+
+.checkbox-label {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.checkbox-container {
+    display: flex;
+}

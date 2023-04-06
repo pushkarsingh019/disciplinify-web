@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { backendUrl } from "../utils/config";
 import axios from "axios";
 import { useState } from "react";
+import CheckBox from "../components/CheckBox";
 
 export default function Dashboard() {
 	const dateList = generateDateStrings(new Date(), 2);
@@ -24,12 +25,13 @@ export default function Dashboard() {
 		},
 		onSuccess: (data) => {
 			const { status } = data;
-			console.log(status);
+			setTasks([]);
 			if (status.morningReflectionCompleted) {
 				const { morningReflection } = data;
 				const { tasks, sleepMetric, dailyAnswer, reflectionAnswer } =
 					morningReflection;
 				setAnswer(dailyAnswer);
+				setTasks(tasks);
 			}
 			if (status.eveningReflectionCompleted) {
 				const { eveningReflection } = data;
@@ -41,6 +43,20 @@ export default function Dashboard() {
 
 	// functions
 	const onDateChoice = (date) => mutation.mutate(date);
+
+	// components
+	const DailyData = () => {
+		if (mutation.isLoading) return <p>Loading...</p>;
+		if (mutation.isError) return <p>error occured, please refresh...</p>;
+		if (mutation.isSuccess)
+			return (
+				<section>
+					{tasks.map((task) => {
+						return <CheckBox task={task} />;
+					})}
+				</section>
+			);
+	};
 
 	return (
 		<section style={{ textAlign: "center" }} className="screen">
@@ -60,22 +76,7 @@ export default function Dashboard() {
 					);
 				})}
 			</section>
-			<h4>How can I make today better?</h4>
-			<p>
-				{mutation.isLoading
-					? "loading"
-					: mutation.isSuccess
-					? answer
-					: ""}
-			</p>
-			<h4>What could I have done to make today better</h4>
-			<p>
-				{mutation.isLoading
-					? "loading"
-					: mutation.isSuccess
-					? aBetterToday
-					: ""}
-			</p>
+			<DailyData />
 		</section>
 	);
 }
