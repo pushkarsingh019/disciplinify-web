@@ -13,6 +13,7 @@ import { useState } from "react";
 import CheckBox from "../components/CheckBox";
 import missionIcon from "../assets/icons/missionIcon.svg";
 import trainingIcon from "../assets/icons/trainingIcon.svg";
+import { useEffect } from "react";
 
 export default function Dashboard({ onTasksUpdate }) {
 	const dateList = generateDateStrings(new Date(), 2);
@@ -22,6 +23,11 @@ export default function Dashboard({ onTasksUpdate }) {
 	const [trainingTasks, setTrainingTasks] = useState([]);
 	const [answer, setAnswer] = useState("");
 	const [aBetterToday, setABetterToday] = useState("");
+
+	// syncing external states
+	useEffect(() => {
+		mutation.mutate(todaysDate());
+	}, []);
 
 	const mutation = useMutation({
 		mutationFn: async (date) => {

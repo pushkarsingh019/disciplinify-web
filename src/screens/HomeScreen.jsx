@@ -39,7 +39,8 @@ export default function HomeScreen({ userData, tasks }) {
 			tasks.filter((task) => task.category === "dailyReflection")
 		);
 	}, [tasks]);
-	console.log(brainTraining);
+
+	useEffect(() => {});
 
 	// functions
 	const computeTaskRatio = (tasks) =>

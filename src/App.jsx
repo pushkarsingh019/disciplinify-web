@@ -10,12 +10,37 @@ import MorningScreen from "./screens/MorningScreen";
 import EveningJournal from "./screens/EveningJournal";
 import Dashboard from "./screens/Dashboard";
 
+// script functions
+import { todaysDate } from "./utils/scripts";
+import { useEffect } from "react";
+import axios from "axios";
+import { backendUrl } from "./utils/config";
+
 export default function App() {
 	const [userData, setUserData] = useState(
 		JSON.parse(localStorage.getItem("userData"))
 	);
 	const [tasks, setTasks] = useState([]);
+	const [haveTasksUpdated, setHaveTasksUpdated] = useState();
 	const accessToken = localStorage.getItem("access_token");
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const { data } = await axios.get(
+					`${backendUrl}/daily/tasks/${todaysDate()}`,
+					{
+						headers: { authorization: `Bearer ${accessToken}` },
+					}
+				);
+				const { tasks } = data;
+				setTasks(tasks);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		fetchData();
+	}, [haveTasksUpdated]);
 
 	// handlers
 	const authHandler = (user) => {
@@ -25,7 +50,7 @@ export default function App() {
 	};
 
 	const taskUpdateHandler = (tasks) => {
-		setTasks(tasks);
+		setHaveTasksUpdated(tasks);
 	};
 
 	return (
