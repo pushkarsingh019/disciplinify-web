@@ -12,11 +12,14 @@ import axios from "axios";
 import { useState } from "react";
 import CheckBox from "../components/CheckBox";
 import missionIcon from "../assets/icons/missionIcon.svg";
+import trainingIcon from "../assets/icons/trainingIcon.svg";
 
 export default function Dashboard({ onTasksUpdate }) {
 	const dateList = generateDateStrings(new Date(), 2);
 	const token = localStorage.getItem("access_token");
 	const [tasks, setTasks] = useState([]);
+	const [dailyTasks, setDailyTasks] = useState([]);
+	const [trainingTasks, setTrainingTasks] = useState([]);
 	const [answer, setAnswer] = useState("");
 	const [aBetterToday, setABetterToday] = useState("");
 
@@ -31,13 +34,31 @@ export default function Dashboard({ onTasksUpdate }) {
 		onSuccess: (data) => {
 			const { status } = data;
 			setTasks([]);
+			setDailyTasks([]);
+			setTrainingTasks([]);
 			onTasksUpdate([]);
 			if (status.morningReflectionCompleted) {
 				const { morningReflection } = data;
-				const { tasks, sleepMetric, dailyAnswer, reflectionAnswer } =
-					morningReflection;
+				const {
+					tasks,
+					sleepMetric,
+					dailyAnswer,
+					reflectionAnswer,
+					trainingChecklist,
+				} = morningReflection;
 				setAnswer(dailyAnswer);
 				setTasks(tasks);
+				setDailyTasks(
+					tasks.filter((task) => task.category === "dailyTask")
+				);
+				setTrainingTasks(
+					tasks.filter(
+						(task) =>
+							task.category === "dailyReflection" ||
+							task.category === "brainTraining" ||
+							task.category === "mindfullness"
+					)
+				);
 				onTasksUpdate(tasks);
 			}
 			if (status.eveningReflectionCompleted) {
@@ -66,6 +87,15 @@ export default function Dashboard({ onTasksUpdate }) {
 		},
 		onSuccess: (data) => {
 			setTasks(data);
+			setDailyTasks(data.filter((task) => task.category === "dailyTask"));
+			setTrainingTasks(
+				data.filter(
+					(task) =>
+						task.category === "dailyReflection" ||
+						task.category === "brainTraining" ||
+						task.category === "mindfullness"
+				)
+			);
 			onTasksUpdate(data);
 		},
 	});
@@ -80,13 +110,22 @@ export default function Dashboard({ onTasksUpdate }) {
 	};
 
 	// components
-	const DailyData = () => {
+	const DailyData = ({ tasksToShow, title, icon }) => {
 		if (mutation.isLoading) return <p>Loading...</p>;
 		if (mutation.isError) return <p>error occured, please refresh...</p>;
 		if (mutation.isSuccess)
 			return (
-				<section>
-					{tasks.map((task) => {
+				<section style={{ textAlign: "left" }}>
+					<div className="checkbox-container">
+						<img src={icon} alt="Todays Goals" />
+						<span className="h2" style={{ marginLeft: "2vw" }}>
+							{" "}
+							{title}
+						</span>
+					</div>
+					<hr />
+					<br />
+					{tasksToShow.map((task) => {
 						return (
 							<CheckBox
 								key={task.id}
@@ -119,18 +158,17 @@ export default function Dashboard({ onTasksUpdate }) {
 					);
 				})}
 			</section>
-			<section style={{ textAlign: "left" }}>
-				<div className="checkbox-container">
-					<img src={missionIcon} alt="Todays Goals" />
-					<span className="h2" style={{ marginLeft: "2vw" }}>
-						{" "}
-						Today's Mission
-					</span>
-				</div>
-				<hr />
-				<br />
-				<DailyData />
-			</section>
+			<DailyData
+				tasksToShow={dailyTasks}
+				title={`Today's Mission`}
+				icon={missionIcon}
+			/>
+			<br />
+			<DailyData
+				tasksToShow={trainingTasks}
+				title={`Today's Training`}
+				icon={trainingIcon}
+			/>
 		</section>
 	);
 }

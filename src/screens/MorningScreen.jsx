@@ -21,16 +21,19 @@ export default function MorningScreen() {
 	const [journey, setJourney] = useState(0);
 	const [taskOne, setTaskOne] = useState({
 		id: 1,
+		category: "dailyTask",
 		completed: false,
 		task: "",
 	});
 	const [taskTwo, setTaskTwo] = useState({
 		id: 2,
+		category: "dailyTask",
 		completed: false,
 		task: "",
 	});
 	const [taskThree, setTaskThree] = useState({
 		id: 3,
+		category: "dailyTask",
 		completed: false,
 		task: "",
 	});
@@ -62,10 +65,45 @@ export default function MorningScreen() {
 	};
 
 	const onTaskSubmit = (event) => {
+		// defining the tasks for training plan
+		const morningReflection = {
+			id: 4,
+			category: "dailyReflection",
+			task: "Morning Reflection",
+			completed: false,
+		};
+		const eveningReflection = {
+			id: 5,
+			category: "dailyReflection",
+			task: "Evening Reflection",
+			completed: false,
+		};
+		const lumosityTraining = {
+			id: 6,
+			category: "brainTraining",
+			task: "lumosity brain training",
+			completed: false,
+			percentageCompleted: 0,
+		};
+		const mindfullnessActivity = {
+			id: 7,
+			category: "mindfullness",
+			task: "mindfullness activity",
+			completed: false,
+			percentageCompleted: 0,
+		};
 		event.preventDefault();
 		setMorningJournal({
 			...morningJournal,
-			tasks: [taskOne, taskTwo, taskThree],
+			tasks: [
+				taskOne,
+				taskTwo,
+				taskThree,
+				morningReflection,
+				eveningReflection,
+				lumosityTraining,
+				mindfullnessActivity,
+			],
 		});
 		setJourney(2);
 	};

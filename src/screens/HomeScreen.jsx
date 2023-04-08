@@ -4,8 +4,43 @@ import { Link } from "react-router-dom";
 import SuggestionCard from "../components/SuggestionCard";
 import NavBar from "../components/NavBar";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function HomeScreen({ userData, tasks }) {
+	// variables
+	const [dailyTasks, setDailyTasks] = useState(
+		tasks.filter(
+			(task) =>
+				task.category === "dailyTask" ||
+				task.category === "dailyReflection"
+		)
+	);
+	const [brainTraining, setBrainTraining] = useState(
+		tasks.filter(
+			(task) =>
+				task.category === "brainTraining" ||
+				task.category === "mindfullness"
+		)
+	);
+	const [reflectionTask, setReflectionTask] = useState(
+		tasks.filter((task) => task.category === "dailyReflection")
+	);
+	// external state
+	useEffect(() => {
+		setDailyTasks(tasks.filter((task) => task.category === "dailyTask"));
+		setBrainTraining(
+			tasks.filter(
+				(task) =>
+					task.category === "brainTraining" ||
+					task.category === "mindfullness"
+			)
+		);
+		setReflectionTask(
+			tasks.filter((task) => task.category === "dailyReflection")
+		);
+	}, [tasks]);
+	console.log(brainTraining);
+
 	// functions
 	const computeTaskRatio = (tasks) =>
 		tasks.filter((task) => task.completed === true).length / tasks.length;
@@ -29,25 +64,43 @@ export default function HomeScreen({ userData, tasks }) {
 					<small>Tasks</small>
 					<br />
 					<strong>
-						{tasks.filter((task) => task.completed === true).length}
-						/{tasks.length} Completed
+						{
+							dailyTasks.filter((task) => task.completed === true)
+								.length
+						}
+						/{dailyTasks.length} Completed
 					</strong>
 					<br />
 					<br />
-					<small>Mindfull Minutes</small>
+					<small>Training</small>
 					<br />
-					<strong>10/10 Completed</strong>
+					<strong>
+						{
+							brainTraining.filter(
+								(task) => task.completed === true
+							).length
+						}
+						/{brainTraining.length} Completed
+					</strong>
 					<br />
 					<br />
-					<small>Brain Training</small>
+					<small>Reflection</small>
 					<br />
-					<strong>1/2 Completed</strong>
+					<strong>
+						{
+							reflectionTask.filter(
+								(task) => task.completed === true
+							).length
+						}
+						/{reflectionTask.length} Completed
+					</strong>
+					<br />
 				</div>
 				<div>
 					<ProgressRings
-						taskProgress={computeTaskRatio(tasks)}
-						mindfullnessProgress={0.7}
-						trainingProgress={0.8}
+						taskProgress={computeTaskRatio(dailyTasks)}
+						mindfullnessProgress={computeTaskRatio(reflectionTask)}
+						trainingProgress={computeTaskRatio(brainTraining)}
 					/>
 				</div>
 			</section>
