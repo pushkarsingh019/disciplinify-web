@@ -13,7 +13,7 @@ import { useState } from "react";
 import CheckBox from "../components/CheckBox";
 import missionIcon from "../assets/icons/missionIcon.svg";
 
-export default function Dashboard() {
+export default function Dashboard({ onTasksUpdate }) {
 	const dateList = generateDateStrings(new Date(), 2);
 	const token = localStorage.getItem("access_token");
 	const [tasks, setTasks] = useState([]);
@@ -31,12 +31,14 @@ export default function Dashboard() {
 		onSuccess: (data) => {
 			const { status } = data;
 			setTasks([]);
+			onTasksUpdate([]);
 			if (status.morningReflectionCompleted) {
 				const { morningReflection } = data;
 				const { tasks, sleepMetric, dailyAnswer, reflectionAnswer } =
 					morningReflection;
 				setAnswer(dailyAnswer);
 				setTasks(tasks);
+				onTasksUpdate(tasks);
 			}
 			if (status.eveningReflectionCompleted) {
 				const { eveningReflection } = data;
@@ -64,6 +66,7 @@ export default function Dashboard() {
 		},
 		onSuccess: (data) => {
 			setTasks(data);
+			onTasksUpdate(data);
 		},
 	});
 

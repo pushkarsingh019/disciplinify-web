@@ -14,6 +14,7 @@ export default function App() {
 	const [userData, setUserData] = useState(
 		JSON.parse(localStorage.getItem("userData"))
 	);
+	const [tasks, setTasks] = useState([]);
 	const accessToken = localStorage.getItem("access_token");
 
 	// handlers
@@ -21,6 +22,10 @@ export default function App() {
 		const userInfo = { id: user.id, name: user.name, email: user.email };
 		localStorage.setItem("userData", JSON.stringify(userInfo));
 		setUserData(JSON.parse(localStorage.getItem("userData")));
+	};
+
+	const taskUpdateHandler = (tasks) => {
+		setTasks(tasks);
 	};
 
 	return (
@@ -32,7 +37,7 @@ export default function App() {
 						userData == null ? (
 							<LandingScreen />
 						) : (
-							<HomeScreen userData={userData} />
+							<HomeScreen userData={userData} tasks={tasks} />
 						)
 					}
 				/>
@@ -42,7 +47,7 @@ export default function App() {
 				/>
 				<Route
 					path="/home"
-					element={<HomeScreen userData={userData} />}
+					element={<HomeScreen userData={userData} tasks={tasks} />}
 				/>
 				<Route
 					path="/login"
@@ -50,7 +55,10 @@ export default function App() {
 				/>
 				<Route path="/morning" element={<MorningScreen />} />
 				<Route path="/evening" element={<EveningJournal />} />
-				<Route path="/dashboard" element={<Dashboard />} />
+				<Route
+					path="/dashboard"
+					element={<Dashboard onTasksUpdate={taskUpdateHandler} />}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
