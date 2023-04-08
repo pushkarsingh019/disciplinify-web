@@ -172,7 +172,7 @@ export default function Dashboard({ onTasksUpdate }) {
 	return (
 		<section style={{ textAlign: "center" }} className="screen">
 			<TimeAndGreetings />
-			<NavBar />
+			<NavBar active={`dashboard`} />
 			<section className="day-strings">
 				{dateList.map((date) => {
 					const dayString = getDayString(new Date(date));

@@ -119,7 +119,7 @@ export default function HomeScreen({ userData, tasks }) {
 				subtitle={`Wind down and reflect on your day.`}
 				redirect={`evening`}
 			/>
-			<NavBar />
+			<NavBar active={`Home`} />
 		</div>
 	);
 }
