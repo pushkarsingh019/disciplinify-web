@@ -1,9 +1,9 @@
-export default function DayBox({ day, date, ifClicked, id }) {
+export default function DayBox({ day, date, ifClicked, id, style }) {
 	const clickHandler = () => {
 		ifClicked(id);
 	};
 	return (
-		<div className="day-box" onClick={clickHandler}>
+		<div className={style} onClick={clickHandler}>
 			<span>{day}</span>
 			<br />
 			{date}

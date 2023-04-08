@@ -52,3 +52,13 @@ export const todaysDate = () => {
   const formattedDate = `${year}-${month}-${day}`;
   return formattedDate;
 };
+
+export const calculateDaysInFuture = (dateString) => {
+  const currentDate = new Date();
+  const inputDate = new Date(dateString);
+  currentDate.setHours(0, 0, 0, 0); // set time to midnight
+  inputDate.setHours(0, 0, 0, 0); // set time to midnight
+  const timeDiff = inputDate.getTime() - currentDate.getTime();
+  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  return daysDiff;
+};

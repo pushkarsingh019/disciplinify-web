@@ -1,6 +1,7 @@
 import NavBar from "../components/NavBar";
 import TimeAndGreetings from "../components/TimeAndGreeting";
 import {
+	calculateDaysInFuture,
 	generateDateStrings,
 	getDayString,
 	todaysDate,
@@ -23,6 +24,10 @@ export default function Dashboard({ onTasksUpdate }) {
 	const [trainingTasks, setTrainingTasks] = useState([]);
 	const [answer, setAnswer] = useState("");
 	const [aBetterToday, setABetterToday] = useState("");
+	const [daysInFuture, setDaysInFuture] = useState("");
+	const [inFuture, setInFuture] = useState(false);
+	const [message, setMessage] = useState(false);
+	const [selectedDate, setSelectedDate] = useState(todaysDate());
 
 	// syncing external states
 	useEffect(() => {
@@ -54,6 +59,11 @@ export default function Dashboard({ onTasksUpdate }) {
 				} = morningReflection;
 				setAnswer(dailyAnswer);
 				setTasks(tasks);
+				if (tasks.length === 0) {
+					setMessage(true);
+				} else {
+					setMessage(false);
+				}
 				setDailyTasks(
 					tasks.filter((task) => task.category === "dailyTask")
 				);
@@ -71,6 +81,9 @@ export default function Dashboard({ onTasksUpdate }) {
 				const { eveningReflection } = data;
 				const { aBetterToday, threeThings } = eveningReflection;
 				setABetterToday(aBetterToday);
+			}
+			if (status.morningReflectionCompleted !== true) {
+				setMessage(true);
 			}
 		},
 	});
@@ -107,7 +120,17 @@ export default function Dashboard({ onTasksUpdate }) {
 	});
 
 	// functions
-	const onDateChoice = (date) => mutation.mutate(date);
+	const onDateChoice = (date) => {
+		setSelectedDate(date);
+		const days = calculateDaysInFuture(date);
+		if (days > 0) {
+			setInFuture(true);
+			setDaysInFuture(days);
+		} else {
+			setInFuture(false);
+			mutation.mutate(date);
+		}
+	};
 
 	const handleTaskCompletion = (data) => {
 		const date = todaysDate();
@@ -160,21 +183,34 @@ export default function Dashboard({ onTasksUpdate }) {
 							id={date}
 							day={dayString.dayOfWeekAbbreviation}
 							date={dayString.dayOfMonth}
+							style={
+								selectedDate === date
+									? "day-box-selected"
+									: "day-box"
+							}
 						/>
 					);
 				})}
 			</section>
-			<DailyData
-				tasksToShow={dailyTasks}
-				title={`Today's Mission`}
-				icon={missionIcon}
-			/>
-			<br />
-			<DailyData
-				tasksToShow={trainingTasks}
-				title={`Today's Training`}
-				icon={trainingIcon}
-			/>
+			{inFuture ? (
+				<p>data will be available in {daysInFuture} days</p>
+			) : message ? (
+				<p>No data available...</p>
+			) : (
+				<section>
+					<DailyData
+						tasksToShow={dailyTasks}
+						title={`Today's Mission`}
+						icon={missionIcon}
+					/>
+					<br />
+					<DailyData
+						tasksToShow={trainingTasks}
+						title={`Today's Training`}
+						icon={trainingIcon}
+					/>
+				</section>
+			)}
 		</section>
 	);
 }
