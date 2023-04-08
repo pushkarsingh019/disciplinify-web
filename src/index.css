@@ -227,3 +227,59 @@ strong {
     color: white;
     cursor: pointer;
 }
+
+
+/* day strings */
+.day-strings {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+}
+
+.day-box {
+    border-radius: 12px;
+    border: 2px solid black;
+    padding: 10px 0px;
+    width: 55px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.day-box:hover{
+    background-color: black;
+    color: white;
+}
+
+.day-box-selected{
+    background-color: black;
+    color: white;
+    border-radius: 12px;
+    border: 2px solid black;
+    padding: 10px 0px;
+    width: 55px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+
+/* checkbox */
+.checkbox {
+    height: 22px;
+    width: 22px;
+    margin-right: 3vw;
+}
+
+.checkbox-label {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.checkbox-container {
+    display: flex;
+}
+
+.checkbox-container span{
+    font-size: 18px;
+    font-weight: bolder;
+}
