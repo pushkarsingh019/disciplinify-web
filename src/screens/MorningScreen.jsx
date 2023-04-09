@@ -9,8 +9,6 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import backSVG from "../assets/icons/back.svg";
 import forwardSVG from "../assets/icons/forward.svg";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.bubble.css";
 
 // data fetching
 import { useMutation } from "@tanstack/react-query";
@@ -234,11 +232,11 @@ export default function MorningScreen() {
 					</h3>
 					<br />
 					<br />
-					<ReactQuill
-						className="editor"
-						theme="bubble"
+					<textarea
+						rows={20}
+						cols={60}
 						value={answer}
-						onChange={setAnswer}
+						onChange={(event) => setAnswer(event.target.value)}
 					/>
 					<br />
 					<button className="cta" onClick={onAnswer}>
@@ -259,11 +257,11 @@ export default function MorningScreen() {
 					</h3>
 					<br />
 					<br />
-					<ReactQuill
-						className="editor"
-						theme="bubble"
+					<textarea
+						rows={20}
+						cols={60}
 						value={reflection}
-						onChange={setReflection}
+						onChange={(event) => setReflection(event.target.value)}
 					/>
 					<br />
 					<button className="cta" onClick={completeMorningReflection}>
