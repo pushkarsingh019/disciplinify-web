@@ -34,6 +34,7 @@ export default function App() {
 					}
 				);
 				const { tasks } = data;
+				console.log(tasks);
 				setTasks(tasks);
 			} catch (error) {
 				console.error(error);
@@ -41,6 +42,14 @@ export default function App() {
 		}
 		fetchData();
 	}, [haveTasksUpdated]);
+
+	useEffect(() => {
+		async function testBackend() {
+			let { data } = await axios.get(`${backendUrl}/`);
+			console.log(data);
+		}
+		testBackend();
+	}, []);
 
 	// handlers
 	const authHandler = (user) => {

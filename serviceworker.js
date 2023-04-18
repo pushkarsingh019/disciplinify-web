@@ -16,13 +16,29 @@ self.addEventListener('install', (event) => {
 // Listen for requests
 self.addEventListener('fetch', (event) => {
     event.respondWith(
-        caches.match(event.request)
-            .then(() => {
-                return fetch(event.request) 
-                    .catch(() => caches.match('./offline.html'))
+      caches.match(event.request)
+        .then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+  
+          return fetch(event.request)
+            .then((networkResponse) => {
+              if (!networkResponse || networkResponse.status !== 200) {
+                return caches.match('./offline.html');
+              }
+  
+              const clonedResponse = networkResponse.clone();
+              caches.open(cacheName)
+                .then((cache) => cache.put(event.request, clonedResponse));
+  
+              return networkResponse;
             })
-    )
-});
+            .catch(() => caches.match('./offline.html'));
+        })
+    );
+  });
+  
 
 // Activate the SW
 self.addEventListener('activate', (event) => {
